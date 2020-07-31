@@ -30,12 +30,13 @@
 	<td><b>Balance</b></td>
 	</tr>
 <%
-	
+	String last_bal=null;
 	if(value!=0){
 		
 	try{
 	ArrayList<BankCustomer> std =  
             (ArrayList<BankCustomer>)request.getAttribute("data1"); 
+	 	last_bal=std.get(0).getBalance();
         for(BankCustomer s:std){%> 
         
         <%--This table only visible when the request is forwarded to 
@@ -52,13 +53,13 @@
             <%}}catch(Exception e){
             	e.printStackTrace();
             }
+	%>
+	<p align="center"><%out.print("Available balance:  "+last_bal); %></p><br>
+	<% 
 	}
-      else{%> 
+     else{%> 
 <%
-try{
-	
-	
-	
+try{ 	
 	LastfiveData l=new LastfiveData();
 	ArrayList<BankCustomer> std =  null;
 	std=l.LastData();
@@ -72,10 +73,10 @@ try{
                 <td><%=s.getBalance() %> 
             </tr> 
             <%}
- 
 	}catch(Exception e){
             	e.printStackTrace();
            }
+    
 %>
 </tr>
 </table>
